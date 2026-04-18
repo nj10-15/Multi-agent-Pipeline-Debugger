@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "sales_transactions_gold_aggregation",
+  "run_id": "run_20240418_004",
+  "logs": [
+    "2024-04-18 07:00:01 INFO Pipeline started",
+    "2024-04-18 07:01:30 INFO Reading from silver.sales_transactions",
+    "2024-04-18 07:03:00 WARNING Output row count 4500000 exceeds expected maximum 500000",
+    "2024-04-18 07:03:01 ERROR Row count validation failed — possible join explosion",
+    "2024-04-18 07:03:02 INFO Pipeline run_20240418_004 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "transaction_id": "INTEGER",
+    "customer_id": "INTEGER",
+    "product_id": "INTEGER",
+    "sale_amount": "FLOAT"
+  },
+  "actual_schema": {
+    "transaction_id": "INTEGER",
+    "customer_id": "INTEGER",
+    "product_id": "INTEGER",
+    "sale_amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 500000,
+    "target": 4500000
+  },
+  "dq_metrics": {
+    "null_ratio_transaction_id": 0.0,
+    "null_ratio_customer_id": 0.0,
+    "duplicate_primary_keys": 3980000,
+    "failed_rules": ["row_count_check", "duplicate_primary_key_check"]
+  },
+  "sql_snippet": "SELECT t.transaction_id, t.customer_id, p.product_id, t.sale_amount FROM silver.sales_transactions t JOIN silver.products p ON t.category_id = p.category_id",
+  "ground_truth_root_cause": "join_explosion",
+  "ground_truth_fix": "Fix join condition to use unique key instead of category_id, add row count assertion before write"
+}

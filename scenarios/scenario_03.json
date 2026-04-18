@@ -1,0 +1,37 @@
+{
+  "pipeline_name": "user_events_streaming_load",
+  "run_id": "run_20240417_003",
+  "logs": [
+    "2024-04-17 09:00:01 INFO Pipeline started",
+    "2024-04-17 09:01:00 INFO Reading from kafka.user_events",
+    "2024-04-17 09:05:00 WARNING Null ratio for user_id exceeded threshold: 0.43",
+    "2024-04-17 09:05:01 WARNING Null ratio for session_id exceeded threshold: 0.38",
+    "2024-04-17 09:05:02 ERROR Data quality check failed — null spike detected",
+    "2024-04-17 09:05:03 INFO Pipeline run_20240417_003 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "user_id": "STRING",
+    "session_id": "STRING",
+    "event_type": "STRING",
+    "event_timestamp": "TIMESTAMP"
+  },
+  "actual_schema": {
+    "user_id": "STRING",
+    "session_id": "STRING",
+    "event_type": "STRING",
+    "event_timestamp": "TIMESTAMP"
+  },
+  "row_counts": {
+    "source": 210000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_user_id": 0.43,
+    "null_ratio_session_id": 0.38,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["null_check_user_id", "null_check_session_id"]
+  },
+  "sql_snippet": "SELECT user_id, session_id, event_type, event_timestamp FROM kafka.user_events",
+  "ground_truth_root_cause": "null_spike",
+  "ground_truth_fix": "Investigate upstream Kafka producer for missing field emissions, add null filtering with alerting"
+}

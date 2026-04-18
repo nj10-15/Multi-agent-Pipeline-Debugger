@@ -1,0 +1,37 @@
+{
+  "pipeline_name": "marketing_campaigns_daily_load",
+  "run_id": "run_20240422_008",
+  "logs": [
+    "2024-04-22 07:00:01 INFO Pipeline started",
+    "2024-04-22 07:01:00 INFO Reading from source.marketing_campaigns",
+    "2024-04-22 07:02:00 INFO Schema validation passed",
+    "2024-04-22 07:03:00 WARNING Source row count 0 is below minimum threshold 1000",
+    "2024-04-22 07:03:01 ERROR Row count validation failed — possible upstream feed failure",
+    "2024-04-22 07:03:02 INFO Pipeline run_20240422_008 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "campaign_id": "INTEGER",
+    "campaign_name": "STRING",
+    "start_date": "DATE",
+    "budget": "FLOAT"
+  },
+  "actual_schema": {
+    "campaign_id": "INTEGER",
+    "campaign_name": "STRING",
+    "start_date": "DATE",
+    "budget": "FLOAT"
+  },
+  "row_counts": {
+    "source": 0,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_campaign_id": 0.0,
+    "null_ratio_campaign_name": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["min_row_count_check"]
+  },
+  "sql_snippet": "SELECT campaign_id, campaign_name, start_date, budget FROM source.marketing_campaigns",
+  "ground_truth_root_cause": "late_arriving_data",
+  "ground_truth_fix": "Check upstream marketing platform API feed, implement retry with exponential backoff and alerting on empty source"
+}

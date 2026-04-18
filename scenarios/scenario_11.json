@@ -1,0 +1,37 @@
+{
+  "pipeline_name": "supply_chain_inventory_reconciliation",
+  "run_id": "run_20240425_011",
+  "logs": [
+    "2024-04-25 05:00:01 INFO Pipeline started",
+    "2024-04-25 05:01:00 INFO Reading from source.supply_chain_inventory",
+    "2024-04-25 05:02:00 WARNING Partition region=APAC not found in target table",
+    "2024-04-25 05:02:01 WARNING Partition region=EMEA not found in target table",
+    "2024-04-25 05:02:02 ERROR Partition mismatch between source and target",
+    "2024-04-25 05:02:03 INFO Pipeline run_20240425_011 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "inventory_id": "INTEGER",
+    "region": "STRING",
+    "product_id": "INTEGER",
+    "stock_level": "INTEGER"
+  },
+  "actual_schema": {
+    "inventory_id": "INTEGER",
+    "region": "STRING",
+    "product_id": "INTEGER",
+    "stock_level": "INTEGER"
+  },
+  "row_counts": {
+    "source": 120000,
+    "target": 45000
+  },
+  "dq_metrics": {
+    "null_ratio_inventory_id": 0.0,
+    "null_ratio_region": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["partition_check_region_APAC", "partition_check_region_EMEA"]
+  },
+  "sql_snippet": "INSERT INTO gold.supply_chain_inventory SELECT * FROM source.supply_chain_inventory",
+  "ground_truth_root_cause": "partition_mismatch",
+  "ground_truth_fix": "Create missing partitions in target table before load, add partition existence check as pre-flight validation"
+}

@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "finance_ledger_daily_reconciliation",
+  "run_id": "run_20240419_005",
+  "logs": [
+    "2024-04-19 05:00:01 INFO Pipeline started",
+    "2024-04-19 05:01:00 INFO Reading from source.finance_ledger",
+    "2024-04-19 05:02:30 WARNING Duplicate primary keys detected in ledger_entry_id",
+    "2024-04-19 05:02:31 ERROR Uniqueness constraint violation on ledger_entry_id",
+    "2024-04-19 05:02:32 INFO Pipeline run_20240419_005 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "ledger_entry_id": "INTEGER",
+    "account_id": "INTEGER",
+    "transaction_date": "DATE",
+    "amount": "FLOAT"
+  },
+  "actual_schema": {
+    "ledger_entry_id": "INTEGER",
+    "account_id": "INTEGER",
+    "transaction_date": "DATE",
+    "amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 80000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_ledger_entry_id": 0.0,
+    "null_ratio_account_id": 0.0,
+    "duplicate_primary_keys": 1200,
+    "failed_rules": ["uniqueness_check_ledger_entry_id"]
+  },
+  "sql_snippet": "INSERT INTO gold.finance_ledger SELECT * FROM source.finance_ledger",
+  "ground_truth_root_cause": "duplicate_records",
+  "ground_truth_fix": "Add deduplication step using ROW_NUMBER() before insert, investigate source system for duplicate emission"
+}

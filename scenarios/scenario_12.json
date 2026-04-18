@@ -1,0 +1,35 @@
+{
+  "pipeline_name": "customer_segmentation_weekly_build",
+  "run_id": "run_20240426_012",
+  "logs": [
+    "2024-04-26 03:00:01 INFO Pipeline started",
+    "2024-04-26 03:01:00 INFO Reading from silver.customer_profiles",
+    "2024-04-26 03:02:00 ERROR Column 'lifetime_value_score' not found in source table",
+    "2024-04-26 03:02:01 ERROR Pipeline failed at feature extraction stage",
+    "2024-04-26 03:02:02 INFO Pipeline run_20240426_012 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "customer_id": "INTEGER",
+    "lifetime_value_score": "FLOAT",
+    "churn_risk_score": "FLOAT",
+    "segment_label": "STRING"
+  },
+  "actual_schema": {
+    "customer_id": "INTEGER",
+    "churn_risk_score": "FLOAT",
+    "segment_label": "STRING"
+  },
+  "row_counts": {
+    "source": 280000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_customer_id": 0.0,
+    "null_ratio_lifetime_value_score": null,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["missing_column_lifetime_value_score"]
+  },
+  "sql_snippet": "SELECT customer_id, lifetime_value_score, churn_risk_score, segment_label FROM silver.customer_profiles",
+  "ground_truth_root_cause": "missing_column",
+  "ground_truth_fix": "Re-add lifetime_value_score to silver.customer_profiles or update pipeline to compute it inline"
+}

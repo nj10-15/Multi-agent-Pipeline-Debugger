@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "clickstream_hourly_aggregation",
+  "run_id": "run_20240420_006",
+  "logs": [
+    "2024-04-20 10:00:01 INFO Pipeline started",
+    "2024-04-20 10:01:00 INFO Reading from bronze.clickstream",
+    "2024-04-20 10:02:15 WARNING Partition date_hour=2024-04-20-09 not found in source",
+    "2024-04-20 10:02:16 ERROR Expected partition missing — possible late arriving data",
+    "2024-04-20 10:02:17 INFO Pipeline run_20240420_006 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "click_id": "STRING",
+    "user_id": "STRING",
+    "page_url": "STRING",
+    "date_hour": "STRING"
+  },
+  "actual_schema": {
+    "click_id": "STRING",
+    "user_id": "STRING",
+    "page_url": "STRING",
+    "date_hour": "STRING"
+  },
+  "row_counts": {
+    "source": 0,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_click_id": 0.0,
+    "null_ratio_user_id": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["partition_existence_check_date_hour"]
+  },
+  "sql_snippet": "SELECT click_id, user_id, page_url, date_hour FROM bronze.clickstream WHERE date_hour = '2024-04-20-09'",
+  "ground_truth_root_cause": "late_arriving_data",
+  "ground_truth_fix": "Implement watermarking and late data tolerance window, add retry logic for missing partitions"
+}

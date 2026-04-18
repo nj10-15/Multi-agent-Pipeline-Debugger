@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "crm_contacts_incremental_load",
+  "run_id": "run_20240429_015",
+  "logs": [
+    "2024-04-29 08:00:01 INFO Pipeline started",
+    "2024-04-29 08:01:00 INFO Reading from source.crm_contacts",
+    "2024-04-29 08:02:00 ERROR Column 'preferred_contact_channel' has type ARRAY but expected STRING",
+    "2024-04-29 08:02:01 ERROR Schema mismatch detected — upstream CRM API response changed",
+    "2024-04-29 08:02:02 INFO Pipeline run_20240429_015 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "contact_id": "INTEGER",
+    "full_name": "STRING",
+    "preferred_contact_channel": "STRING",
+    "last_contacted": "DATE"
+  },
+  "actual_schema": {
+    "contact_id": "INTEGER",
+    "full_name": "STRING",
+    "preferred_contact_channel": "ARRAY",
+    "last_contacted": "DATE"
+  },
+  "row_counts": {
+    "source": 190000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_contact_id": 0.0,
+    "null_ratio_preferred_contact_channel": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["type_check_preferred_contact_channel"]
+  },
+  "sql_snippet": "SELECT contact_id, full_name, preferred_contact_channel, last_contacted FROM source.crm_contacts",
+  "ground_truth_root_cause": "schema_mismatch",
+  "ground_truth_fix": "Extract first element from ARRAY or explode and deduplicate, update schema registry to reflect CRM API change"
+}

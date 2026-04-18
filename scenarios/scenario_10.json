@@ -1,0 +1,38 @@
+{
+  "pipeline_name": "ecommerce_returns_processing",
+  "run_id": "run_20240424_010",
+  "logs": [
+    "2024-04-24 09:00:01 INFO Pipeline started",
+    "2024-04-24 09:01:00 INFO Reading from silver.ecommerce_returns",
+    "2024-04-24 09:02:30 WARNING Null ratio for return_reason exceeded threshold: 0.67",
+    "2024-04-24 09:02:31 WARNING Null ratio for refund_amount exceeded threshold: 0.52",
+    "2024-04-24 09:02:32 ERROR Multiple null spikes detected across critical columns",
+    "2024-04-24 09:02:33 INFO Pipeline run_20240424_010 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "return_id": "INTEGER",
+    "order_id": "INTEGER",
+    "return_reason": "STRING",
+    "refund_amount": "FLOAT"
+  },
+  "actual_schema": {
+    "return_id": "INTEGER",
+    "order_id": "INTEGER",
+    "return_reason": "STRING",
+    "refund_amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 33000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_return_id": 0.0,
+    "null_ratio_return_reason": 0.67,
+    "null_ratio_refund_amount": 0.52,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["null_check_return_reason", "null_check_refund_amount"]
+  },
+  "sql_snippet": "SELECT return_id, order_id, return_reason, refund_amount FROM silver.ecommerce_returns",
+  "ground_truth_root_cause": "null_spike",
+  "ground_truth_fix": "Investigate returns intake form for missing field submissions, add upstream validation before silver layer write"
+}

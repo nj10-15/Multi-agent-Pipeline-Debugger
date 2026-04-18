@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "payments_daily_settlement",
+  "run_id": "run_20240427_013",
+  "logs": [
+    "2024-04-27 04:00:01 INFO Pipeline started",
+    "2024-04-27 04:01:00 INFO Reading from source.payments_ledger",
+    "2024-04-27 04:02:00 WARNING Output row count 9800000 exceeds expected maximum 1000000",
+    "2024-04-27 04:02:01 ERROR Row count explosion detected — possible fanout join",
+    "2024-04-27 04:02:02 INFO Pipeline run_20240427_013 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "payment_id": "INTEGER",
+    "account_id": "INTEGER",
+    "settlement_date": "DATE",
+    "amount": "FLOAT"
+  },
+  "actual_schema": {
+    "payment_id": "INTEGER",
+    "account_id": "INTEGER",
+    "settlement_date": "DATE",
+    "amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 1000000,
+    "target": 9800000
+  },
+  "dq_metrics": {
+    "null_ratio_payment_id": 0.0,
+    "null_ratio_account_id": 0.0,
+    "duplicate_primary_keys": 8750000,
+    "failed_rules": ["row_count_check", "duplicate_primary_key_check"]
+  },
+  "sql_snippet": "SELECT p.payment_id, p.account_id, s.settlement_date, p.amount FROM source.payments_ledger p JOIN source.settlement_calendar s ON p.currency_code = s.currency_code",
+  "ground_truth_root_cause": "join_explosion",
+  "ground_truth_fix": "Replace currency_code join with a unique settlement_id key, add row count assertion before write"
+}

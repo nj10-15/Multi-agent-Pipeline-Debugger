@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "hr_employee_records_sync",
+  "run_id": "run_20240421_007",
+  "logs": [
+    "2024-04-21 08:00:01 INFO Pipeline started",
+    "2024-04-21 08:01:00 INFO Reading from source.hr_employee_records",
+    "2024-04-21 08:02:30 ERROR Cannot parse timestamp '21-04-2024 08:30:00' with format '%Y-%m-%d %H:%M:%S'",
+    "2024-04-21 08:02:31 ERROR Pipeline failed at timestamp parsing stage",
+    "2024-04-21 08:02:32 INFO Pipeline run_20240421_007 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "employee_id": "INTEGER",
+    "full_name": "STRING",
+    "hire_date": "TIMESTAMP",
+    "department_id": "INTEGER"
+  },
+  "actual_schema": {
+    "employee_id": "INTEGER",
+    "full_name": "STRING",
+    "hire_date": "STRING",
+    "department_id": "INTEGER"
+  },
+  "row_counts": {
+    "source": 15000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_employee_id": 0.0,
+    "null_ratio_hire_date": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["timestamp_format_check_hire_date"]
+  },
+  "sql_snippet": "SELECT employee_id, full_name, TO_TIMESTAMP(hire_date, '%Y-%m-%d %H:%M:%S'), department_id FROM source.hr_employee_records",
+  "ground_truth_root_cause": "type_cast_failure",
+  "ground_truth_fix": "Update timestamp parsing format to match source format '%d-%m-%Y %H:%M:%S' or normalize at source"
+}

@@ -1,0 +1,41 @@
+{
+  "pipeline_name": "data_warehouse_nightly_snapshot",
+  "run_id": "run_20240504_020",
+  "logs": [
+    "2024-05-04 02:00:01 INFO Pipeline started",
+    "2024-05-04 02:01:00 INFO Reading from silver.data_warehouse_snapshot",
+    "2024-05-04 02:02:00 ERROR Column 'account_status' has type BOOLEAN but expected STRING",
+    "2024-05-04 02:02:01 ERROR Column 'renewal_date' has type INTEGER but expected DATE",
+    "2024-05-04 02:02:02 ERROR Multiple type mismatches detected — upstream model changed",
+    "2024-05-04 02:02:03 INFO Pipeline run_20240504_020 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "account_id": "INTEGER",
+    "account_status": "STRING",
+    "renewal_date": "DATE",
+    "monthly_spend": "FLOAT"
+  },
+  "actual_schema": {
+    "account_id": "INTEGER",
+    "account_status": "BOOLEAN",
+    "renewal_date": "INTEGER",
+    "monthly_spend": "FLOAT"
+  },
+  "row_counts": {
+    "source": 430000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_account_id": 0.0,
+    "null_ratio_account_status": 0.0,
+    "null_ratio_renewal_date": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": [
+      "type_check_account_status",
+      "type_check_renewal_date"
+    ]
+  },
+  "sql_snippet": "SELECT account_id, account_status, renewal_date, monthly_spend FROM silver.data_warehouse_snapshot",
+  "ground_truth_root_cause": "schema_mismatch",
+  "ground_truth_fix": "Cast BOOLEAN account_status to STRING and convert INTEGER renewal_date from epoch to DATE, enforce schema contract with upstream dbt model"
+}

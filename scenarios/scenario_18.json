@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "retail_pos_transactions_load",
+  "run_id": "run_20240502_018",
+  "logs": [
+    "2024-05-02 07:00:01 INFO Pipeline started",
+    "2024-05-02 07:01:00 INFO Reading from source.retail_pos_transactions",
+    "2024-05-02 07:02:00 ERROR Column 'store_region' not found in source table",
+    "2024-05-02 07:02:01 ERROR Column 'pos_terminal_id' not found in source table",
+    "2024-05-02 07:02:02 ERROR Pipeline failed — multiple missing columns detected",
+    "2024-05-02 07:02:03 INFO Pipeline run_20240502_018 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "transaction_id": "INTEGER",
+    "store_region": "STRING",
+    "pos_terminal_id": "STRING",
+    "transaction_amount": "FLOAT"
+  },
+  "actual_schema": {
+    "transaction_id": "INTEGER",
+    "transaction_amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 75000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_transaction_id": 0.0,
+    "null_ratio_store_region": null,
+    "null_ratio_pos_terminal_id": null,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["missing_column_store_region", "missing_column_pos_terminal_id"]
+  },
+  "sql_snippet": "SELECT transaction_id, store_region, pos_terminal_id, transaction_amount FROM source.retail_pos_transactions",
+  "ground_truth_root_cause": "missing_column",
+  "ground_truth_fix": "Restore store_region and pos_terminal_id columns in source POS system export, add schema contract validation before pipeline execution"
+}

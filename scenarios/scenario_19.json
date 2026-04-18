@@ -1,0 +1,48 @@
+{
+  "pipeline_name": "web_analytics_sessions_daily",
+  "run_id": "run_20240503_019",
+  "logs": [
+    "2024-05-03 05:00:01 INFO Pipeline started",
+    "2024-05-03 05:01:00 INFO Reading from bronze.web_analytics_sessions",
+    "2024-05-03 05:02:00 WARNING Null ratio for session_duration_seconds exceeded threshold: 0.71",
+    "2024-05-03 05:02:01 WARNING Null ratio for device_type exceeded threshold: 0.58",
+    "2024-05-03 05:02:02 WARNING Null ratio for traffic_source exceeded threshold: 0.61",
+    "2024-05-03 05:02:03 ERROR Critical null spike across multiple columns — possible tracking script failure",
+    "2024-05-03 05:02:04 INFO Pipeline run_20240503_019 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "session_id": "STRING",
+    "user_id": "STRING",
+    "session_duration_seconds": "INTEGER",
+    "device_type": "STRING",
+    "traffic_source": "STRING",
+    "session_date": "DATE"
+  },
+  "actual_schema": {
+    "session_id": "STRING",
+    "user_id": "STRING",
+    "session_duration_seconds": "INTEGER",
+    "device_type": "STRING",
+    "traffic_source": "STRING",
+    "session_date": "DATE"
+  },
+  "row_counts": {
+    "source": 890000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_session_id": 0.0,
+    "null_ratio_session_duration_seconds": 0.71,
+    "null_ratio_device_type": 0.58,
+    "null_ratio_traffic_source": 0.61,
+    "duplicate_primary_keys": 0,
+    "failed_rules": [
+      "null_check_session_duration_seconds",
+      "null_check_device_type",
+      "null_check_traffic_source"
+    ]
+  },
+  "sql_snippet": "SELECT session_id, user_id, session_duration_seconds, device_type, traffic_source, session_date FROM bronze.web_analytics_sessions",
+  "ground_truth_root_cause": "null_spike",
+  "ground_truth_fix": "Investigate JavaScript tracking script for broken event properties, add fallback default values and upstream validation"
+}

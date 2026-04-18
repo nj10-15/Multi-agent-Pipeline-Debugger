@@ -1,0 +1,36 @@
+{
+  "pipeline_name": "logistics_shipments_bronze_load",
+  "run_id": "run_20240423_009",
+  "logs": [
+    "2024-04-23 06:00:01 INFO Pipeline started",
+    "2024-04-23 06:01:00 INFO Reading from source.logistics_shipments",
+    "2024-04-23 06:02:00 ERROR Column 'delivery_zone' has type STRUCT but expected STRING",
+    "2024-04-23 06:02:01 ERROR Schema mismatch detected at ingestion stage",
+    "2024-04-23 06:02:02 INFO Pipeline run_20240423_009 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "shipment_id": "INTEGER",
+    "delivery_zone": "STRING",
+    "carrier_id": "INTEGER",
+    "estimated_delivery": "DATE"
+  },
+  "actual_schema": {
+    "shipment_id": "INTEGER",
+    "delivery_zone": "STRUCT",
+    "carrier_id": "INTEGER",
+    "estimated_delivery": "DATE"
+  },
+  "row_counts": {
+    "source": 67000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_shipment_id": 0.0,
+    "null_ratio_delivery_zone": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["type_check_delivery_zone"]
+  },
+  "sql_snippet": "SELECT shipment_id, delivery_zone, carrier_id, estimated_delivery FROM source.logistics_shipments",
+  "ground_truth_root_cause": "schema_mismatch",
+  "ground_truth_fix": "Flatten STRUCT column delivery_zone before ingestion or update pipeline to handle nested type"
+}

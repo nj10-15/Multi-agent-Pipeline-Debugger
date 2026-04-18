@@ -1,0 +1,37 @@
+{
+  "pipeline_name": "ads_impressions_daily_rollup",
+  "run_id": "run_20240430_016",
+  "logs": [
+    "2024-04-30 06:00:01 INFO Pipeline started",
+    "2024-04-30 06:01:00 INFO Reading from bronze.ads_impressions",
+    "2024-04-30 06:02:00 WARNING Duplicate impression_id records detected: 45000",
+    "2024-04-30 06:02:01 WARNING Duplicate ad_click_id records detected: 38000",
+    "2024-04-30 06:02:02 ERROR Uniqueness constraints violated on multiple columns",
+    "2024-04-30 06:02:03 INFO Pipeline run_20240430_016 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "impression_id": "STRING",
+    "ad_click_id": "STRING",
+    "campaign_id": "INTEGER",
+    "impression_timestamp": "TIMESTAMP"
+  },
+  "actual_schema": {
+    "impression_id": "STRING",
+    "ad_click_id": "STRING",
+    "campaign_id": "INTEGER",
+    "impression_timestamp": "TIMESTAMP"
+  },
+  "row_counts": {
+    "source": 3200000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_impression_id": 0.0,
+    "null_ratio_ad_click_id": 0.0,
+    "duplicate_primary_keys": 45000,
+    "failed_rules": ["uniqueness_check_impression_id", "uniqueness_check_ad_click_id"]
+  },
+  "sql_snippet": "INSERT INTO gold.ads_impressions SELECT * FROM bronze.ads_impressions",
+  "ground_truth_root_cause": "duplicate_records",
+  "ground_truth_fix": "Add deduplication using ROW_NUMBER() partitioned by impression_id, investigate ad tracking SDK for duplicate event emission"
+}

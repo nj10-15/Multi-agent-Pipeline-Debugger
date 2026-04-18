@@ -1,0 +1,35 @@
+{
+  "pipeline_name": "product_inventory_daily_load",
+  "run_id": "run_20240416_002",
+  "logs": [
+    "2024-04-16 06:00:01 INFO Pipeline started",
+    "2024-04-16 06:01:10 INFO Reading from bronze.product_inventory",
+    "2024-04-16 06:02:45 ERROR Column 'warehouse_code' not found in source table",
+    "2024-04-16 06:02:45 ERROR Pipeline failed at ingestion stage",
+    "2024-04-16 06:02:46 INFO Pipeline run_20240416_002 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "product_id": "INTEGER",
+    "warehouse_code": "STRING",
+    "stock_count": "INTEGER",
+    "last_updated": "TIMESTAMP"
+  },
+  "actual_schema": {
+    "product_id": "INTEGER",
+    "stock_count": "INTEGER",
+    "last_updated": "TIMESTAMP"
+  },
+  "row_counts": {
+    "source": 42000,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_product_id": 0.0,
+    "null_ratio_warehouse_code": null,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["missing_column_warehouse_code"]
+  },
+  "sql_snippet": "SELECT product_id, warehouse_code, stock_count, last_updated FROM bronze.product_inventory",
+  "ground_truth_root_cause": "missing_column",
+  "ground_truth_fix": "Add warehouse_code back to source table or update pipeline to handle missing column"
+}

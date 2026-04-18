@@ -1,0 +1,37 @@
+{
+  "pipeline_name": "healthcare_claims_nightly_load",
+  "run_id": "run_20240501_017",
+  "logs": [
+    "2024-05-01 01:00:01 INFO Pipeline started",
+    "2024-05-01 01:01:00 INFO Reading from source.healthcare_claims",
+    "2024-05-01 01:02:00 WARNING Partition claim_date=2024-04-30 missing from source",
+    "2024-05-01 01:02:01 WARNING Partition claim_date=2024-04-29 missing from source",
+    "2024-05-01 01:02:02 ERROR Expected partitions not found — upstream claims processor delayed",
+    "2024-05-01 01:02:03 INFO Pipeline run_20240501_017 terminated with status FAILED"
+  ],
+  "expected_schema": {
+    "claim_id": "INTEGER",
+    "patient_id": "INTEGER",
+    "claim_date": "DATE",
+    "claim_amount": "FLOAT"
+  },
+  "actual_schema": {
+    "claim_id": "INTEGER",
+    "patient_id": "INTEGER",
+    "claim_date": "DATE",
+    "claim_amount": "FLOAT"
+  },
+  "row_counts": {
+    "source": 0,
+    "target": 0
+  },
+  "dq_metrics": {
+    "null_ratio_claim_id": 0.0,
+    "null_ratio_claim_date": 0.0,
+    "duplicate_primary_keys": 0,
+    "failed_rules": ["partition_existence_check_claim_date"]
+  },
+  "sql_snippet": "SELECT claim_id, patient_id, claim_date, claim_amount FROM source.healthcare_claims WHERE claim_date >= '2024-04-29'",
+  "ground_truth_root_cause": "late_arriving_data",
+  "ground_truth_fix": "Add retry logic with 2-hour tolerance window, configure pipeline to wait for upstream claims processor before executing"
+}
