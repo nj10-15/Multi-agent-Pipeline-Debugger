@@ -1,0 +1,71 @@
+============================================================
+PIPELINE INCIDENT REPORT
+============================================================
+Generated:     2026-04-18 20:51:32
+Pipeline:      customer_orders_silver_to_gold
+Run ID:        run_20240415_001
+Severity:      HIGH
+Confidence:    95%
+============================================================
+
+INCIDENT SUMMARY
+----------------
+The root cause of the pipeline failure is a type casting error due to a schema mismatch where the 'subscription_tier' column was expected to be an INTEGER but was provided as a STRING with values like 'premium'. This led to a failure in casting during the transformation stage, causing the pipeline to halt and resulting in a row count mismatch.
+
+ISSUE CATEGORY
+--------------
+Type Cast Failure
+
+EVIDENCE COLLECTED
+------------------
+Log Analysis:
+  - Issue detected: True
+  - Error message:  Cannot cast value 'premium' to INTEGER for column subscription_tier
+  - Evidence:       The log indicates an error during the transformation stage where a value 'premium' cannot be cast to INTEGER for the column subscription_tier.
+  - Confidence:     95%
+
+Schema Validation:
+  - Mismatch detected:  True
+  - Missing columns:    None
+  - Type changes:       ['subscription_tier: INTEGER -> STRING']
+  - Extra columns:      None
+  - Evidence:           The expected schema has 'subscription_tier' as INTEGER, while the actual schema has it as STRING.
+  - Confidence:         90%
+
+Data Quality:
+  - Quality issue detected:  True
+  - Null spike columns:      None
+  - Duplicate count:         0
+  - Row count mismatch:      True
+  - Evidence:                Row count mismatch detected: source has 95000 rows while target has 0 rows. No null ratios above 5% and no duplicate primary keys found. However, there is a failed rule for type checking on the subscription tier.
+  - Confidence:              90%
+
+SUPPORTING EVIDENCE
+-------------------
+  - Log Analysis indicates a type casting error with message: 'Cannot cast value 'premium' to INTEGER for column subscription_tier'.
+  - Schema Validation shows a type change for 'subscription_tier' from INTEGER to STRING, indicating a schema mismatch.
+  - Data Quality findings report a row count mismatch with 95000 rows in source and 0 in target, and a failed type checking rule for 'subscription_tier'.
+
+IMPACT ASSESSMENT
+-----------------
+Source rows:   95000
+Target rows:   0
+Failed rules:  ['type_check_subscription_tier']
+
+RECOMMENDED FIXES
+-----------------
+Priority fix:
+  Update the schema definition in the ETL pipeline to correctly reflect the 'subscription_tier' column as STRING instead of INTEGER. This will prevent type casting errors during transformation.
+
+All recommended fixes:
+  1. Update the schema definition in the ETL pipeline to correctly reflect the 'subscription_tier' column as STRING instead of INTEGER. This will prevent type casting errors during transformation.
+  2. Implement a data validation step before the transformation stage to check for schema mismatches and log any discrepancies. This can be done using a schema registry or a data validation library like Great Expectations.
+  3. Add a transformation logic to handle the 'subscription_tier' values appropriately, such as mapping string values ('premium', 'basic', etc.) to corresponding integer codes if necessary for downstream processes.
+  4. Set up automated alerts for schema changes in the source data to proactively address potential mismatches before they cause pipeline failures.
+
+Estimated impact:
+  Applying these fixes will ensure that the pipeline runs smoothly without interruptions due to type casting errors, maintaining data integrity and consistency. This will prevent data loss and ensure accurate reporting and analytics, which is crucial for business decision-making. The fixes will also reduce downtime and improve the reliability of the ETL process.
+
+============================================================
+END OF REPORT
+============================================================

@@ -43,6 +43,19 @@ def run_single_incident(scenario_path: str):
     match = "✅ CORRECT" if predicted == actual else "❌ INCORRECT"
     print(f"Prediction:      {match}")
 
+    # Generate and save report
+    from utils.report_generator import generate_report, save_report
+    report = generate_report(
+        incident,
+        result["log_analysis"],
+        result["schema_validation"],
+        result["data_quality"],
+        root_cause,
+        fix
+    )
+    filepath = save_report(report, incident["pipeline_name"], incident["run_id"])
+    print(f"Report saved:    {filepath}")
+
     return result
 
 
