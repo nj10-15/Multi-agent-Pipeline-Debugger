@@ -34,7 +34,8 @@ The multi-agent system outperforms a single GPT-4o-mini baseline on ambiguous bo
 ---
 
 ## System Architecture
-<img width="624" height="652" alt="image" src="https://github.com/user-attachments/assets/fca94f75-49db-49c2-af16-a91fb7c3499e" />
+
+![Architecture Diagram](assets/architecture.png)
 
 The system uses a LangGraph state graph where each agent is a node. 
 After log analysis, a routing node inspects the detected issue category 
