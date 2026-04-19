@@ -1,0 +1,381 @@
+{
+  "evaluation_date": "2026-04-18 20:37:23",
+  "total_scenarios": 20,
+  "baseline": {
+    "accuracy": 90.0,
+    "correct": 18,
+    "avg_confidence": 0.91,
+    "avg_time_seconds": 1.86,
+    "results": [
+      {
+        "scenario": "scenarios/scenario_01.json",
+        "pipeline": "customer_orders_silver_to_gold",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 3.08
+      },
+      {
+        "scenario": "scenarios/scenario_02.json",
+        "pipeline": "product_inventory_daily_load",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 2.0
+      },
+      {
+        "scenario": "scenarios/scenario_03.json",
+        "pipeline": "user_events_streaming_load",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.69
+      },
+      {
+        "scenario": "scenarios/scenario_04.json",
+        "pipeline": "sales_transactions_gold_aggregation",
+        "ground_truth": "join_explosion",
+        "predicted": "join_explosion",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 2.0
+      },
+      {
+        "scenario": "scenarios/scenario_05.json",
+        "pipeline": "finance_ledger_daily_reconciliation",
+        "ground_truth": "duplicate_records",
+        "predicted": "duplicate_records",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.63
+      },
+      {
+        "scenario": "scenarios/scenario_06.json",
+        "pipeline": "clickstream_hourly_aggregation",
+        "ground_truth": "late_arriving_data",
+        "predicted": "late_arriving_data",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.67
+      },
+      {
+        "scenario": "scenarios/scenario_07.json",
+        "pipeline": "hr_employee_records_sync",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.5
+      },
+      {
+        "scenario": "scenarios/scenario_08.json",
+        "pipeline": "marketing_campaigns_daily_load",
+        "ground_truth": "late_arriving_data",
+        "predicted": "null_spike",
+        "correct": false,
+        "confidence": 0.9,
+        "time_seconds": 1.83
+      },
+      {
+        "scenario": "scenarios/scenario_09.json",
+        "pipeline": "logistics_shipments_bronze_load",
+        "ground_truth": "schema_mismatch",
+        "predicted": "schema_mismatch",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 1.72
+      },
+      {
+        "scenario": "scenarios/scenario_10.json",
+        "pipeline": "ecommerce_returns_processing",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.91
+      },
+      {
+        "scenario": "scenarios/scenario_11.json",
+        "pipeline": "supply_chain_inventory_reconciliation",
+        "ground_truth": "partition_mismatch",
+        "predicted": "partition_mismatch",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.93
+      },
+      {
+        "scenario": "scenarios/scenario_12.json",
+        "pipeline": "customer_segmentation_weekly_build",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.89
+      },
+      {
+        "scenario": "scenarios/scenario_13.json",
+        "pipeline": "payments_daily_settlement",
+        "ground_truth": "join_explosion",
+        "predicted": "join_explosion",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.79
+      },
+      {
+        "scenario": "scenarios/scenario_14.json",
+        "pipeline": "iot_sensor_readings_hourly",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 2.06
+      },
+      {
+        "scenario": "scenarios/scenario_15.json",
+        "pipeline": "crm_contacts_incremental_load",
+        "ground_truth": "schema_mismatch",
+        "predicted": "schema_mismatch",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 1.73
+      },
+      {
+        "scenario": "scenarios/scenario_16.json",
+        "pipeline": "ads_impressions_daily_rollup",
+        "ground_truth": "duplicate_records",
+        "predicted": "duplicate_records",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.31
+      },
+      {
+        "scenario": "scenarios/scenario_17.json",
+        "pipeline": "healthcare_claims_nightly_load",
+        "ground_truth": "late_arriving_data",
+        "predicted": "late_arriving_data",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.78
+      },
+      {
+        "scenario": "scenarios/scenario_18.json",
+        "pipeline": "retail_pos_transactions_load",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 2.78
+      },
+      {
+        "scenario": "scenarios/scenario_19.json",
+        "pipeline": "web_analytics_sessions_daily",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.9,
+        "time_seconds": 1.47
+      },
+      {
+        "scenario": "scenarios/scenario_20.json",
+        "pipeline": "data_warehouse_nightly_snapshot",
+        "ground_truth": "schema_mismatch",
+        "predicted": "type_cast_failure",
+        "correct": false,
+        "confidence": 0.9,
+        "time_seconds": 1.45
+      }
+    ]
+  },
+  "multi_agent": {
+    "accuracy": 95.0,
+    "correct": 19,
+    "avg_confidence": 0.95,
+    "avg_time_seconds": 9.19,
+    "results": [
+      {
+        "scenario": "scenarios/scenario_01.json",
+        "pipeline": "customer_orders_silver_to_gold",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 10.63
+      },
+      {
+        "scenario": "scenarios/scenario_02.json",
+        "pipeline": "product_inventory_daily_load",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.03
+      },
+      {
+        "scenario": "scenarios/scenario_03.json",
+        "pipeline": "user_events_streaming_load",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 14.96
+      },
+      {
+        "scenario": "scenarios/scenario_04.json",
+        "pipeline": "sales_transactions_gold_aggregation",
+        "ground_truth": "join_explosion",
+        "predicted": "join_explosion",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.03
+      },
+      {
+        "scenario": "scenarios/scenario_05.json",
+        "pipeline": "finance_ledger_daily_reconciliation",
+        "ground_truth": "duplicate_records",
+        "predicted": "duplicate_records",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.09
+      },
+      {
+        "scenario": "scenarios/scenario_06.json",
+        "pipeline": "clickstream_hourly_aggregation",
+        "ground_truth": "late_arriving_data",
+        "predicted": "late_arriving_data",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.98
+      },
+      {
+        "scenario": "scenarios/scenario_07.json",
+        "pipeline": "hr_employee_records_sync",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 9.51
+      },
+      {
+        "scenario": "scenarios/scenario_08.json",
+        "pipeline": "marketing_campaigns_daily_load",
+        "ground_truth": "late_arriving_data",
+        "predicted": "late_arriving_data",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 7.07
+      },
+      {
+        "scenario": "scenarios/scenario_09.json",
+        "pipeline": "logistics_shipments_bronze_load",
+        "ground_truth": "schema_mismatch",
+        "predicted": "schema_mismatch",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.17
+      },
+      {
+        "scenario": "scenarios/scenario_10.json",
+        "pipeline": "ecommerce_returns_processing",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 9.2
+      },
+      {
+        "scenario": "scenarios/scenario_11.json",
+        "pipeline": "supply_chain_inventory_reconciliation",
+        "ground_truth": "partition_mismatch",
+        "predicted": "partition_mismatch",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 7.41
+      },
+      {
+        "scenario": "scenarios/scenario_12.json",
+        "pipeline": "customer_segmentation_weekly_build",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.54
+      },
+      {
+        "scenario": "scenarios/scenario_13.json",
+        "pipeline": "payments_daily_settlement",
+        "ground_truth": "join_explosion",
+        "predicted": "join_explosion",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 11.1
+      },
+      {
+        "scenario": "scenarios/scenario_14.json",
+        "pipeline": "iot_sensor_readings_hourly",
+        "ground_truth": "type_cast_failure",
+        "predicted": "type_cast_failure",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 8.81
+      },
+      {
+        "scenario": "scenarios/scenario_15.json",
+        "pipeline": "crm_contacts_incremental_load",
+        "ground_truth": "schema_mismatch",
+        "predicted": "schema_mismatch",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 10.88
+      },
+      {
+        "scenario": "scenarios/scenario_16.json",
+        "pipeline": "ads_impressions_daily_rollup",
+        "ground_truth": "duplicate_records",
+        "predicted": "duplicate_records",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 9.12
+      },
+      {
+        "scenario": "scenarios/scenario_17.json",
+        "pipeline": "healthcare_claims_nightly_load",
+        "ground_truth": "late_arriving_data",
+        "predicted": "late_arriving_data",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 9.02
+      },
+      {
+        "scenario": "scenarios/scenario_18.json",
+        "pipeline": "retail_pos_transactions_load",
+        "ground_truth": "missing_column",
+        "predicted": "missing_column",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 7.66
+      },
+      {
+        "scenario": "scenarios/scenario_19.json",
+        "pipeline": "web_analytics_sessions_daily",
+        "ground_truth": "null_spike",
+        "predicted": "null_spike",
+        "correct": true,
+        "confidence": 0.95,
+        "time_seconds": 11.0
+      },
+      {
+        "scenario": "scenarios/scenario_20.json",
+        "pipeline": "data_warehouse_nightly_snapshot",
+        "ground_truth": "schema_mismatch",
+        "predicted": "type_cast_failure",
+        "correct": false,
+        "confidence": 0.95,
+        "time_seconds": 7.49
+      }
+    ]
+  },
+  "improvement": 5.0
+}
